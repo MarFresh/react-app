@@ -15,7 +15,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build("MarFresh/react-app")
+                    app = docker.build("marfresh/react-app")
                     app.inside {
                         sh 'echo $(curl localhost:1233)'
                     }
@@ -41,14 +41,14 @@ pipeline {
             }
             steps {
                     script {
-                        sh "docker pull MarFresh/react-app:${env.BUILD_NUMBER}"
+                        sh "docker pull marfresh/react-app:${env.BUILD_NUMBER}"
                         try {
                             sh "docker stop react-app"
                             sh "docker rm react-app"
                         } catch (err) {
                             echo: 'caught error: $err'
                         }
-                        sh "docker run --restart always --name react-app -p 1233:80 -d MarFresh/react-app:${env.BUILD_NUMBER}"
+                        sh "docker run --restart always --name react-app -p 1233:80 -d marfresh/react-app:${env.BUILD_NUMBER}"
                     }
             }
         }
@@ -80,14 +80,14 @@ pipeline {
                 input 'Does the staging environment look OK? Did You get 200 response?'
                  milestone(1)
                     script {
-                        sh "docker pull MarFresh/react-app:${env.BUILD_NUMBER}"
+                        sh "docker pull marfresh/react-app:${env.BUILD_NUMBER}"
                         try {
                             sh "docker stop react-app"
                             sh "docker rm react-app"
                         } catch (err) {
                             echo: 'caught error: $err'
                         }
-                        sh "docker run --restart always --name react-app -p 1233:80 -d MarFresh/react-app:${env.BUILD_NUMBER}"
+                        sh "docker run --restart always --name react-app -p 1233:80 -d marfresh/react-app:${env.BUILD_NUMBER}"
                     }
             }
         }
